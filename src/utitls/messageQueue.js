@@ -22,6 +22,8 @@ const subscribeMessage  = async (channel , service , bindingKey)=>{
         channel.consume(applicationQueue.queue , msg=>{
             console.log("Received data");
             console.log(msg.content.toString());
+            const payload  = JSON.parse( msg.content.toString());
+            service( payload );
             channel.ack(msg);
         })
 
